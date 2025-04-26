@@ -11,4 +11,4 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Build the Docker image
-      run: cd DataApi & docker build . --file Dockerfile --tag data_api:$(date +%s)
+      run: cd ./DataApi && docker build . --file Dockerfile --tag data_api:$(date +%s)
