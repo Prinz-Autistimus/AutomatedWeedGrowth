@@ -36,4 +36,4 @@ jobs:
           context: ./DataApi
           file: ./DataApi/Dockerfile
           push: true
-          tags: ghcr.io/${{ steps.ChangeRepositoryStringCase.outputs.lowercase }}/DataAPi:latest
+          tags: ghcr.io/${{ steps.ChangeRepositoryStringCase.outputs.lowercase }}/data_api:latest
