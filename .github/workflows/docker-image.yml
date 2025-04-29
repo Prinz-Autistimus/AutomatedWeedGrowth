@@ -40,4 +40,5 @@ jobs:
           context: ./DataApi
           file: ./DataApi/Dockerfile
           push: true
+          platforms: linux/arm/v7
           tags: ghcr.io/${{ steps.ChangeRepositoryStringCase.outputs.lowercase }}/data_api:latest
