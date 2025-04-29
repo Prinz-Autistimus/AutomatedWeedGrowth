@@ -42,9 +42,9 @@ def read_humidity():
 def read_status():
     result: dict = {}
 
-    result.update({"temperatur": "20C"})
-    result.update({"humidity": "50%"})
-    result.update({"lamp_on": "true"})
-    result.update({"heater_on": "false"})
+    result.update({"temperatur": 20})
+    result.update({"humidity": 50})
+    result.update({"lamp_on": True})
+    result.update({"heater_on": False})
 
     return result
