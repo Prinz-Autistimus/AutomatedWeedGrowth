@@ -3,6 +3,3 @@ pydantic>=2.7.0,<3.0.0
 redis
 types-redis
 uvicorn
-adafruit-blinka
-adafruit-platformdetect
-adafruit-circuitpython-dht
