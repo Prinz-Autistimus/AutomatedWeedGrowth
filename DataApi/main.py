@@ -37,3 +37,14 @@ def read_humidity():
             print("Error while reading humidity, Attempt: " + i)
 
     return result
+
+@app.get("/status")
+def read_status():
+    result: dict = {}
+
+    result.update({"temperatur": "20C"})
+    result.update({"humidity": "50%"})
+    result.update({"lamp_on": "true"})
+    result.update({"heater_on": "false"})
+
+    return result
