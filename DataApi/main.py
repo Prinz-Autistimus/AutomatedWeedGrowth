@@ -1,7 +1,6 @@
 from fastapi import FastAPI
 import random
 
-#sensor = adafruit_dht.DHT22(board.D4)
 app = FastAPI()
 
 @app.get("/")
