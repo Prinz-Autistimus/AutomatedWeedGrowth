@@ -52,7 +52,7 @@ def read_humidity():
 
     humidity = get_humidity()
     if not humidity == -1:
-        result.update({"humidity"}: humidity)
+        result.update({"humidity": humidity})
     
     return result
 
