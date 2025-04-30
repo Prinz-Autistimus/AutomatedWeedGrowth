@@ -1,7 +1,36 @@
 from fastapi import FastAPI
 import random
+import pigpio
+from pigpio_dht import DHT22
+
+DHT_PIN = 4
+READ_RETRIES = 5
+sensor = DHT22(DHT_PIN)
 
 app = FastAPI()
+
+def read_sensor_values():
+    result = sensor.read(READ_RETRIES)
+    return result
+
+def get_temp():
+    sensor_data = read_sensor_values()
+
+    if not sensor_data["valid"]:
+        return -100
+        
+    temp = sensor_data["temp_c"]
+    return temp
+
+def get_humidity():
+    sensor_data = read_sensor_values()
+
+    if not sensor_data["valid"]:
+        return -1
+        
+    humidity = sensor_data["humidity"]
+    return humidity
+
 
 @app.get("/")
 def read_root():
@@ -10,14 +39,10 @@ def read_root():
 @app.get("/temp")
 def read_temp():
     result: dict = {}
-
-    for i in range(50):
-        try:
-            temp = sensor.temperature
-            result.update({"temperature": f"{temp}"})
-            break
-        except:
-            print("Error while reading temperature, Attempt: " + i)
+    
+    temp = get_temp()
+    if not temp == -100:
+        result.update({"temperature": temp})
     
     return result
 
@@ -25,14 +50,10 @@ def read_temp():
 def read_humidity():
     result: dict = {}
 
-    for i in range(50):
-        try:
-            humidity = sensor.humidity
-            result.update({"humidity": f"{humidity}"})
-            break
-        except:
-            print("Error while reading humidity, Attempt: " + i)
-
+    humidity = get_humidity()
+    if not humidity == -1:
+        result.update({"humidity"}: humidity)
+    
     return result
 
 @app.get("/status")
