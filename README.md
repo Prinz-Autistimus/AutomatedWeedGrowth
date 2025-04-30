@@ -36,6 +36,28 @@ A telegraf instance, which is developed by the team from the influxDB, is used, 
 
 Grafana OSS is used to visualize your data. It is connected to the InfluxDB via an API token and pulls data from your database and converts it to visually appealing graphs.
 
+### Current Structure:
+```mermaid
+architecture-beta
+    group rpi(server)[Raspberry Pi]
+    group homelab(server)[Homelab Server]
+
+    group docker_h(cloud)[Docker] in homelab
+    group docker_rpi(cloud)[Docker] in rpi
+
+    service db(database)[InfluxDB] in docker_h
+    service grafana(internet)[Grafana] in docker_h
+    service telegraf(server)[Telegraf] in docker_h
+
+    service api(internet)[REST API] in docker_rpi
+    service pigpio(server)[PI GPIO] in docker_rpi
+
+    db:L <--> R:grafana
+    telegraf:L --> R:db
+    telegraf:R <--> L:api
+    api:R <--> L:pigpio
+```
+
 
 ## Community
 This is an open-source product which will be available for everybody to use to their own liking. Feel free to help this project by opening issues or contact me if you think something isn't right.
