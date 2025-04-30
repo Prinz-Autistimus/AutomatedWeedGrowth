@@ -19,4 +19,4 @@ COPY . /app
 
 EXPOSE 8000
 
-CMD ["fastapi", "run", "/app/main.py", "--port", "8000"]
+CMD ["pigpiod", "&&", "fastapi", "run", "/app/main.py", "--port", "8000"]

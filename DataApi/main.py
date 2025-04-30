@@ -1,6 +1,5 @@
 from fastapi import FastAPI
 import random
-import pigpio
 from pigpio_dht import DHT22
 
 DHT_PIN = 4
