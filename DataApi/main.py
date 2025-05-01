@@ -22,6 +22,7 @@ app = FastAPI()
 
 def read_sensor_values():
     result = sensor.read(READ_RETRIES)
+    print(result)
     return result
 
 def get_temp(sensor_data: dict):
