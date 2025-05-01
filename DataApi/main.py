@@ -94,6 +94,7 @@ def read_status():
 
 @app.post("/heater/on")
 def turn_on_heater():
+    global heater_on
     heater_before = heater_on
     heater_on = True
     apply_heater()
@@ -106,6 +107,7 @@ def turn_on_heater():
 
 @app.post("/heater/off")
 def turn_off_heater():
+    global heater_on
     heater_before = heater_on
     heater_on = False
     apply_heater()
@@ -118,6 +120,7 @@ def turn_off_heater():
 
 @app.post("/lamp/on")
 def turn_on_lamp():
+    global lamp_on
     lamp_before = lamp_on
     lamp_on = True
     apply_lamp()
@@ -130,6 +133,7 @@ def turn_on_lamp():
 
 @app.post("/lamp/off")
 def turn_on_lamp():
+    global lamp_on
     lamp_before = lamp_on
     lamp_on = False
     apply_lamp()
