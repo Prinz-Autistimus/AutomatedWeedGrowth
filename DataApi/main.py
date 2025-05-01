@@ -1,12 +1,19 @@
 from fastapi import FastAPI
 import random
 from pigpio_dht import DHT22
+import pigpio
+import time
 
 DHT_PIN = 4
+LED_PIN = 4
 READ_RETRIES = 5
-sensor = DHT22(DHT_PIN)
+#sensor = DHT22(DHT_PIN)
 
 app = FastAPI()
+pi = pigpio.pi()
+
+pi.set_mode(LED_PIN, pigpio.OUTPUT)
+
 
 def read_sensor_values():
     result = sensor.read(READ_RETRIES)
@@ -65,3 +72,12 @@ def read_status():
     result.update({"heater_on": False})
 
     return result
+
+
+for _ in range(100):
+    pi.write(LED_PIN, 1)
+    time.sleep(0.5)
+    pi.write(LED_PIN, 0)
+    time.sleep(0.5)
+
+pi.write(LED_PIN, 0)
