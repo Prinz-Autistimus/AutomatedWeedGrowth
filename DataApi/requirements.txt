@@ -4,4 +4,3 @@ redis
 types-redis
 uvicorn
 pigpio
-Adafruit_DHT
