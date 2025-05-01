@@ -3,6 +3,7 @@ import random
 import pigpio
 import Adafruit_DHT
 
+Adafruit_DHT.platform = 'RPi'
 rpi = pigpio.pi()
 
 DHT_PIN = 17
