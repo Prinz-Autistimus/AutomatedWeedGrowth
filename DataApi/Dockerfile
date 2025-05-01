@@ -6,6 +6,7 @@ RUN apt-get update && apt-get install -y \
   gcc \
   g++ \
   python3-dev \
+  python3-setuptools \
   libffi-dev \
   libssl-dev \
   make \
