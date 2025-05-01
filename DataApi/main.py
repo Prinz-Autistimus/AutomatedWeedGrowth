@@ -7,8 +7,8 @@ import time
 rpi = pigpio.pi()
 
 DHT_PIN = 17
-READ_RETRIES = 1
-sensor = DHT22(gpio=DHT_PIN, timeout_secs=2, use_internal_pullup=True, pi=rpi)
+READ_RETRIES = 3
+sensor = DHT22(gpio=DHT_PIN, timeout_secs=2)
 
 HEATER_PIN = 23
 rpi.set_mode(HEATER_PIN, pigpio.OUTPUT)
