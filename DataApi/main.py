@@ -94,20 +94,48 @@ def read_status():
 
 @app.post("/heater/on")
 def turn_on_heater():
+    heater_before = heater_on
     heater_on = True
     apply_heater()
 
+    result: dict = {}
+
+    result.update({"state_before": heater_before})
+    result.update({"state_after": heater_on})
+    return result
+
 @app.post("/heater/off")
 def turn_off_heater():
+    heater_before = heater_on
     heater_on = False
     apply_heater()
 
+    result: dict = {}
+
+    result.update({"state_before": heater_before})
+    result.update({"state_after": heater_on})
+    return result
+
 @app.post("/lamp/on")
 def turn_on_lamp():
+    lamp_before = lamp_on
     lamp_on = True
     apply_lamp()
+    
+    result: dict = {}
+
+    result.update({"state_before": lamp_before})
+    result.update({"state_after": lamp_on})
+    return result
 
 @app.post("/lamp/off")
 def turn_on_lamp():
+    lamp_before = lamp_on
     lamp_on = False
-    apply_lamp()    
+    apply_lamp()
+
+    result: dict = {}
+
+    result.update({"state_before": lamp_before})
+    result.update({"state_after": lamp_on})
+    return result    
