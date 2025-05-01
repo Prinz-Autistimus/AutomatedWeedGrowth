@@ -44,4 +44,6 @@ jobs:
           file: ./DataApi/Dockerfile
           push: true
           platforms: linux/arm64
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
           tags: ghcr.io/${{ steps.ChangeRepositoryStringCase.outputs.lowercase }}/data_api:latest
