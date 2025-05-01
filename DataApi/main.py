@@ -1,14 +1,14 @@
 from fastapi import FastAPI
 import random
-from pigpio_dht import DHT22
 import pigpio
-import time
+import Adafruit_DHT
 
 rpi = pigpio.pi()
 
 DHT_PIN = 17
 READ_RETRIES = 3
-sensor = DHT22(gpio=DHT_PIN, timeout_secs=2)
+#sensor = DHT22(gpio=DHT_PIN, timeout_secs=2)
+sensor = Adafruit_DHT.DHT22
 
 HEATER_PIN = 23
 rpi.set_mode(HEATER_PIN, pigpio.OUTPUT)
@@ -21,9 +21,10 @@ lamp_on = False
 app = FastAPI()
 
 def read_sensor_values():
-    result = sensor.read(READ_RETRIES)
-    print(result)
-    return result
+    global DHT_PIN
+    humidity, temperature = Adafruit_DHT.read_retry(sensor, DHT_PIN)
+    print(f"Read sensor data: Temp:{temperature}°C, Humidity:{humidity}%")
+    return (humidity, temperature)
 
 def get_temp(sensor_data: dict):
     if not sensor_data["valid"]:
@@ -54,7 +55,7 @@ def read_root():
 def read_temp():
     result: dict = {}
     
-    temp = get_temp()
+    _, temp = read_sensor_values()
     if not temp == -100:
         result.update({"temperature": temp})
     
@@ -64,7 +65,7 @@ def read_temp():
 def read_humidity():
     result: dict = {}
 
-    humidity = get_humidity()
+    humidity, _ = read_sensor_values()
     if not humidity == -1:
         result.update({"humidity": humidity})
     
@@ -84,10 +85,10 @@ def read_heater():
 def read_status():
     result: dict = {}
 
-    sensor_data = read_sensor_values()
+    humidity, temperature = read_sensor_values()
 
-    result.update({"temperatur": get_temp(sensor_data)})
-    result.update({"humidity": get_humidity(sensor_data)})
+    result.update({"temperatur": temperature})
+    result.update({"humidity": humidity})
     result.update({"lamp_on": lamp_on})
     result.update({"heater_on": heater_on})
 
