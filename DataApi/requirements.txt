@@ -4,3 +4,4 @@ redis
 types-redis
 uvicorn
 pigpio
+adafruit_dht
