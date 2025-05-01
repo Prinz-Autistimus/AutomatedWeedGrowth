@@ -75,8 +75,10 @@ def read_status():
 
 
 for _ in range(100):
+    print("LED ON")
     pi.write(LED_PIN, 1)
     time.sleep(0.5)
+    print("LED OFF")
     pi.write(LED_PIN, 0)
     time.sleep(0.5)
 
