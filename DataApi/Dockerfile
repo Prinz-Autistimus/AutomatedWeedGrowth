@@ -11,6 +11,12 @@ RUN apt-get update && apt-get install -y \
   make \
   && apt-get clean && rm -rf /var/lib/apt/lists/*
 
+RUN wget https://pypi.python.org/packages/source/R/RPi.GPIO/RPi.GPIO-0.7.1.tar.gz && \
+  tar -xzf RPi.GPIO-0.7.1.tar.gz && \
+  cd RPi.GPIO-0.7.1 && \
+  python3 setup.py install && \
+  cd .. && rm -rf RPi.GPIO*
+
 COPY requirements.txt /app/requirements.txt
 
 RUN pip install --no-cache-dir --upgrade -r /app/requirements.txt
