@@ -9,6 +9,7 @@ RUN apt-get update && apt-get install -y \
   libffi-dev \
   libssl-dev \
   make \
+  wget \
   && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN wget https://pypi.python.org/packages/source/R/RPi.GPIO/RPi.GPIO-0.7.1.tar.gz && \
