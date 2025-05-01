@@ -6,11 +6,11 @@ import adafruit_dht
 
 rpi = pigpio.pi()
 
-DHT_PIN = 17
+DHT_PIN = board.D17
 READ_RETRIES = 3
 #sensor = DHT22(gpio=DHT_PIN, timeout_secs=2)
 #sensor = Adafruit_DHT.DHT22
-sensor = adafruit_dht.DHT22(board.D4)
+sensor = adafruit_dht.DHT22(DHT_PIN)
 
 HEATER_PIN = 23
 rpi.set_mode(HEATER_PIN, pigpio.OUTPUT)
