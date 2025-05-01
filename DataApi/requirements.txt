@@ -5,4 +5,3 @@ types-redis
 uvicorn
 pigpio
 gpiozero
-Adafruit_DHT
