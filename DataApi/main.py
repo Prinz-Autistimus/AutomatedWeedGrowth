@@ -2,7 +2,7 @@ from fastapi import FastAPI
 import random
 import pigpio
 import board
-import adafruit_dht
+import Adafruit_DHT
 
 rpi = pigpio.pi()
 
@@ -10,7 +10,7 @@ DHT_PIN = board.D17
 READ_RETRIES = 3
 #sensor = DHT22(gpio=DHT_PIN, timeout_secs=2)
 #sensor = Adafruit_DHT.DHT22
-sensor = adafruit_dht.DHT22(DHT_PIN)
+sensor = Adafruit_DHT.DHT22
 
 HEATER_PIN = 23
 rpi.set_mode(HEATER_PIN, pigpio.OUTPUT)
@@ -23,8 +23,7 @@ lamp_on = False
 app = FastAPI()
 
 def read_sensor_values():
-    humidity = sensor.humidity
-    temperature = sensor.temperature
+    humidity, temperature = Adafruit_DHT.read_retry(sensor, DHT_PIN)
     print(f"Read sensor data: Temp:{temperature}°C, Humidity:{humidity}%")
     return (humidity, temperature)
 

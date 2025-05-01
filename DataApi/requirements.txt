@@ -4,4 +4,5 @@ redis
 types-redis
 uvicorn
 pigpio
-adafruit-circuitpython-dht
+gpiozero
+Adafruit_DHT
