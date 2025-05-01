@@ -1,12 +1,11 @@
 from fastapi import FastAPI
 import random
 import pigpio
-import board
 import Adafruit_DHT
 
 rpi = pigpio.pi()
 
-DHT_PIN = board.D17
+DHT_PIN = 17
 READ_RETRIES = 3
 #sensor = DHT22(gpio=DHT_PIN, timeout_secs=2)
 #sensor = Adafruit_DHT.DHT22
@@ -135,7 +134,7 @@ def turn_on_lamp():
     return result
 
 @app.post("/lamp/off")
-def turn_on_lamp():
+def turn_off_lamp():
     global lamp_on
     lamp_before = lamp_on
     lamp_on = False
