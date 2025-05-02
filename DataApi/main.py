@@ -185,7 +185,7 @@ def do_tick():
 
     return {"last_tick": before_tick, "current_tick": tick_counter, "lamp_on": lamp_on}
 
-@app.post("/skipcyle")
+@app.post("/skipcycle")
 def skip_cycle():
     global tick_counter
     tick_counter = 0
