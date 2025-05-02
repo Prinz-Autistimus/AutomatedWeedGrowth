@@ -23,9 +23,9 @@ lamp_on = False
 app = FastAPI()
 
 def read_sensor_values():
-    sensor.trigger()
-    temperature = sensor.temperature()
-    humidity = sensor.humidity()
+    sensor._trigger()
+    temperature = sensor._temperature()
+    humidity = sensor._humidity()
     print(f"Read sensor data: Temp:{temperature}°C, Humidity:{humidity}%")
     return (humidity, temperature)
 
