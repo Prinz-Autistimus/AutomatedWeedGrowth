@@ -5,6 +5,11 @@ import time
 
 rpi = pigpio.pi()
 
+light_tick_counter = 0
+
+light_time = 5 #In Minutes
+dark_time = 3 #InMinutes
+
 DHT_PIN = 17
 READ_RETRIES = 3
 sensor = DHT22.sensor(rpi, DHT_PIN)
@@ -58,6 +63,11 @@ def apply_heater():
 def apply_lamp():
     rpi.write(LAMP_PIN, 1 if lamp_on else 0)
 
+#=================================================================================================#
+#                                                                                                 #
+#                                       REST-API ENDPOINTS                                        #
+#                                                                                                 #
+#=================================================================================================#
 
 @app.get("/")
 def read_root():
@@ -157,3 +167,17 @@ def turn_off_lamp():
     result.update({"state_before": lamp_before})
     result.update({"state_after": lamp_on})
     return result    
+
+@app.post("/tick")
+def do_tick():
+    global light_tick_counter
+    light_tick_counter += 1
+
+    if light_tick_counter > light_time+dark_time:
+        light_tick_counter = 0
+
+
+    if light_tick_counter <= light_time and not lamp_on:
+        turn_on_lamp()
+    elif lamp_on:
+        turn_off_lamp()
