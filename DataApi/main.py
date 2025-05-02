@@ -109,8 +109,12 @@ def read_status():
 
     humidity, temperature = read_sensor_values()
 
-    result.update({"temperatur": temperature})
-    result.update({"humidity": humidity})
+    if not temperature == -100:
+        result.update({"temperatur": temperature})
+
+    if not humidity == -100:
+        result.update({"humidity": humidity})
+    
     result.update({"lamp_on": 1 if lamp_on else 0})
     result.update({"heater_on": 1 if heater_on else 0})
 
