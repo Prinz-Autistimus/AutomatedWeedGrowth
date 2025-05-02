@@ -4,7 +4,7 @@ FROM debian:bookworm-slim
 RUN apt-get update && apt-get install -y cron curl
 
 # Cronjob hinzufügen (jede Minute ein POST-Request)
-RUN echo "* * * * * curl -X POST http://192.168.178.68:8000/tick >> /etc/crontab
+RUN echo "* * * * * root curl -X POST http://192.168.178.68:8000/tick >> /var/log/cron.log 2>&1" >> /etc/crontab
 
 # Starte cron im Vordergrund
 CMD ["cron", "-f"]
