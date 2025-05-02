@@ -171,6 +171,7 @@ def turn_off_lamp():
 @app.post("/tick")
 def do_tick():
     global light_tick_counter
+    before_tick = light_tick_counter
     light_tick_counter += 1
 
     if light_tick_counter > light_time+dark_time:
@@ -181,3 +182,5 @@ def do_tick():
         turn_on_lamp()
     elif lamp_on:
         turn_off_lamp()
+
+    return {"last_tick": before_tick, "current_tick": light_tick_counter}
