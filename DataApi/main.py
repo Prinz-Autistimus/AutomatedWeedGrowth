@@ -175,7 +175,7 @@ def do_tick():
     
     tick_counter -= 1
 
-    if tick_counter == 0:
+    if tick_counter <= 0:
         if lamp_on:
             tick_counter = dark_time
             turn_off_lamp()
@@ -184,3 +184,10 @@ def do_tick():
             turn_on_lamp()
 
     return {"last_tick": before_tick, "current_tick": tick_counter, "lamp_on": lamp_on}
+
+@app.post("/skipcyle")
+def skip_cycle():
+    global tick_counter
+    tick_counter = 0
+
+    return {"reset_tick_counter": tick_counter}
