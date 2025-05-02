@@ -1,15 +1,12 @@
 from fastapi import FastAPI
-import random
 import pigpio
 import DHT22
-from gpiozero.pins.pigpio import PiGPIOFactory
+import time
 
 rpi = pigpio.pi()
 
 DHT_PIN = 17
 READ_RETRIES = 3
-
-factory = PiGPIOFactory()
 sensor = DHT22.sensor(rpi, DHT_PIN)
 
 HEATER_PIN = 23
@@ -22,12 +19,23 @@ lamp_on = False
 
 app = FastAPI()
 
+last_read = time.time() #Time in seconds
+temp_cache = -100
+hum_cache = -100
+
 def read_sensor_values():
-    sensor._trigger()
-    temperature = sensor._temperature()
-    humidity = sensor._humidity()
-    print(f"Read sensor data: Temp:{temperature}°C, Humidity:{humidity}%")
-    return (humidity, temperature)
+    global temp_cache, hum_cache, last_read
+    if time.time() - last_read > 2:
+        print("Calling Sensor for new Values")
+        sensor._trigger()
+        temp_cache = sensor._temperature
+        hum_cache = sensor._humidity
+        last_read = time.time()
+    else:
+        print("Read too fast, utilizing cached Values")
+
+    print(f"Read sensor data: Temp:{temp_cache}°C, Humidity:{hum_cache}%")
+    return (temp_cache, hum_cache)
 
 def get_temp(sensor_data: dict):
     if not sensor_data["valid"]:
