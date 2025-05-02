@@ -5,10 +5,10 @@ import time
 
 rpi = pigpio.pi()
 
-light_tick_counter = 0
-
-light_time = 5 #In Minutes
-dark_time = 3 #InMinutes
+tick_period = 24
+light_time = 18 #In Minutes
+dark_time = tick_period-light_time
+tick_counter = light_time
 
 DHT_PIN = 17
 READ_RETRIES = 3
@@ -170,19 +170,17 @@ def turn_off_lamp():
 
 @app.post("/tick")
 def do_tick():
-    global light_tick_counter
-    before_tick = light_tick_counter
-    light_tick_counter += 1
+    global tick_counter
+    before_tick = tick_counter
+    
+    tick_counter -= 1
 
-    if light_tick_counter > light_time+dark_time:
-        light_tick_counter = 0
-
-
-    if light_tick_counter <= light_time:
-        if not lamp_on:
-            turn_on_lamp()
-    elif light_tick_counter > light_time and light_tick_counter <= light_time+dark_time:
+    if tick_counter == 0:
         if lamp_on:
+            tick_counter = dark_time
             turn_off_lamp()
+        else:
+            tick_counter = light_time
+            turn_on_lamp()
 
-    return {"last_tick": before_tick, "current_tick": light_tick_counter}
+    return {"last_tick": before_tick, "current_tick": tick_counter}
