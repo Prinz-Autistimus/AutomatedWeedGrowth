@@ -5,7 +5,7 @@ import time
 
 rpi = pigpio.pi()
 
-tick_period = 24
+tick_period = 24 #In Minutes
 light_time = 18 #In Minutes
 dark_time = tick_period-light_time
 tick_counter = light_time
@@ -20,7 +20,7 @@ heater_on = False
 
 LAMP_PIN = 24
 rpi.set_mode(LAMP_PIN, pigpio.OUTPUT)
-lamp_on = False
+lamp_on = True
 
 app = FastAPI()
 
@@ -183,4 +183,4 @@ def do_tick():
             tick_counter = light_time
             turn_on_lamp()
 
-    return {"last_tick": before_tick, "current_tick": tick_counter}
+    return {"last_tick": before_tick, "current_tick": tick_counter, "lamp_on": lamp_on}
