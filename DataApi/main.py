@@ -37,6 +37,7 @@ def read_sensor_values():
     print(f"Read sensor data: Temp:{temp_cache}°C, Humidity:{hum_cache}%")
     return (temp_cache, hum_cache)
 
+
 def get_temp(sensor_data: dict):
     if not sensor_data["valid"]:
         return -100
