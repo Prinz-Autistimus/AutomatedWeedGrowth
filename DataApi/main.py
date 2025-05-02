@@ -191,3 +191,14 @@ def skip_cycle():
     tick_counter = 0
 
     return {"reset_tick_counter": tick_counter}
+
+@app.post("/tick/cycle")
+def change_cycle_time(new_cycle: int = 18):
+    global light_time
+    before_time = light_time
+
+    light_time = new_cycle
+    dark_time = tick_period-light_time
+    tick_counter = new_cycle
+
+    return {"last_cycle": before_time, "new_cycle": light_time}
