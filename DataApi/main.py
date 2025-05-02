@@ -101,8 +101,8 @@ def read_status():
 
     result.update({"temperatur": temperature})
     result.update({"humidity": humidity})
-    result.update({"lamp_on": lamp_on})
-    result.update({"heater_on": heater_on})
+    result.update({"lamp_on": 1 if lamp_on else 0})
+    result.update({"heater_on": 1 if heater_on else 0})
 
     return result
 
