@@ -14,4 +14,4 @@ RUN pip install --no-cache-dir --upgrade -r /app/requirements.txt
 
 COPY . /app
 
-CMD ["python3", "./main.py"]
+CMD ["python3", "-u", "./main.py"]

@@ -17,7 +17,7 @@ while True:
             temp = temp_json.get("temperature")
 
             heater_json = heater_response.json()
-            heater_on = heater_json.get("temperature")
+            heater_on = heater_json.get("heater_on")
 
             endpoint = ""
 
