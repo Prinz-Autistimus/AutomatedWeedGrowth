@@ -194,7 +194,7 @@ def skip_cycle():
 
 @app.post("/tick/cycle")
 def change_cycle_time(new_cycle: int = 18):
-    global light_time
+    global light_time, dark_time, tick_counter
     before_time = light_time
 
     light_time = new_cycle
