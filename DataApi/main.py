@@ -178,9 +178,11 @@ def do_tick():
         light_tick_counter = 0
 
 
-    if light_tick_counter <= light_time and not lamp_on:
-        turn_on_lamp()
-    elif lamp_on:
-        turn_off_lamp()
+    if light_tick_counter <= light_time:
+        if not lamp_on:
+            turn_on_lamp()
+    elif light_tick_counter > light_time and light_tick_counter <= light_time+dark_time:
+        if lamp_on:
+            turn_off_lamp()
 
     return {"last_tick": before_tick, "current_tick": light_tick_counter}
