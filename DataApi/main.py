@@ -35,7 +35,7 @@ def read_sensor_values():
         print("Read too fast, utilizing cached Values")
 
     print(f"Read sensor data: Temp:{temp_cache}°C, Humidity:{hum_cache}%")
-    return (temp_cache, hum_cache)
+    return (hum_cache, temp_cache)
 
 
 def get_temp(sensor_data: dict):
