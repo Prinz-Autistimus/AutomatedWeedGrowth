@@ -1,10 +1,19 @@
-FROM debian:bookworm-slim
+FROM python:3.12-slim-bullseye
 
-# Installiere cron und curl
-RUN apt-get update && apt-get install -y cron curl
+WORKDIR /app
 
-# Cronjob hinzufügen (jede Minute ein POST-Request)
-RUN echo "* * * * * root curl -X POST http://192.168.178.68:8000/tick >> /var/log/cron.log 2>&1" >> /etc/crontab
+RUN apt-get update && apt-get install -y \
+  build-essential \
+  python3-dev \
+  python3-setuptools \
+  curl \
+  && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+COPY requirements.txt /app/requirements.txt
+
+RUN pip install --no-cache-dir --upgrade -r /app/requirements.txt
+
+COPY . /app
 
 # Starte cron im Vordergrund
-CMD ["cron", "-f"]
+CMD ["python3", "./main.py"]
