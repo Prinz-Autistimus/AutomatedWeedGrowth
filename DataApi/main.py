@@ -24,6 +24,7 @@ lamp_on = True
 
 WATER_PIN = 25
 rpi.set_mode(WATER_PIN, pigpio.OUTPUT)
+rpi.write(WATER_PIN, 1)
 water_on = False
 
 app = FastAPI()
