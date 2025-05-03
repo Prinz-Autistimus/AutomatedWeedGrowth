@@ -58,10 +58,10 @@ def get_humidity(sensor_data: dict):
     return humidity
 
 def apply_heater():
-    rpi.write(HEATER_PIN, 1 if heater_on else 0)
+    rpi.write(HEATER_PIN, 0 if heater_on else 1)
 
 def apply_lamp():
-    rpi.write(LAMP_PIN, 1 if lamp_on else 0)
+    rpi.write(LAMP_PIN, 0 if lamp_on else 1)
 
 #=================================================================================================#
 #                                                                                                 #
