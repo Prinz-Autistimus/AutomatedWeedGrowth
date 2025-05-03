@@ -22,6 +22,10 @@ LAMP_PIN = 24
 rpi.set_mode(LAMP_PIN, pigpio.OUTPUT)
 lamp_on = True
 
+WATER_PIN = 25
+rpi.set_mode(WATER_PIN, pigpio.OUTPUT)
+water_on = False
+
 app = FastAPI()
 
 last_read = time.time() #Time in seconds
@@ -193,8 +197,9 @@ def do_tick():
 def skip_cycle():
     global tick_counter
     tick_counter = 0
+    upcoming_cycle = "light_on" if not lamp_on else "light_off"
 
-    return {"reset_tick_counter": tick_counter}
+    return {"reset_tick_counter": tick_counter, "upcoming_cylce": upcoming_cycle}
 
 @app.post("/tick/cycle")
 def change_cycle_time(new_cycle: int = 18):
