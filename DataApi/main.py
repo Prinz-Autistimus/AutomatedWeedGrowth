@@ -5,6 +5,12 @@ import time
 
 rpi = pigpio.pi()
 
+#=================================================================================================#
+#                                                                                                 #
+#                                               SETUP                                             #
+#                                                                                                 #
+#=================================================================================================#
+
 tick_period = 24 #In Minutes
 light_time = 18 #In Minutes
 dark_time = tick_period-light_time
@@ -16,10 +22,12 @@ sensor = DHT22.sensor(rpi, DHT_PIN)
 
 HEATER_PIN = 23
 rpi.set_mode(HEATER_PIN, pigpio.OUTPUT)
+rpi.write(HEATER_PIN, 1)
 heater_on = False
 
 LAMP_PIN = 24
 rpi.set_mode(LAMP_PIN, pigpio.OUTPUT)
+rpi.write(LAMP_PIN, 0)
 lamp_on = True
 
 WATER_PIN = 25
@@ -32,6 +40,12 @@ app = FastAPI()
 last_read = time.time() #Time in seconds
 temp_cache = -100
 hum_cache = -100
+
+#=================================================================================================#
+#                                                                                                 #
+#                                       HELPER FUNCTIONS                                          #
+#                                                                                                 #
+#=================================================================================================#
 
 def read_sensor_values():
     global temp_cache, hum_cache, last_read
