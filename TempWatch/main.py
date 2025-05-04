@@ -1,8 +1,8 @@
 import requests
 import time
 
-UPPER_LIMIT = 22
-LOWER_LIMIT = 19
+UPPER_LIMIT = 23
+LOWER_LIMIT = 20
 
 while True:
     try:
